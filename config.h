@@ -77,6 +77,9 @@ static const char *brightdown[] = {"brightnessctl", "set", "50-"};
 
 static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
 
+static const char *screenwarm[] = {"redshift", "-P", "-O", "3000", NULL};
+static const char *screencold[] = {"redshift", "-P", "-O", "6500", NULL};
+
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
 static Key keys[] = {
@@ -115,7 +118,9 @@ static Key keys[] = {
 	{ 0,XF86XK_AudioMute,                      spawn,          {.v = volmute} },
 	{ 0,XF86XK_MonBrightnessUp,                spawn,          {.v = brightup} },
 	{ 0,XF86XK_MonBrightnessDown,              spawn,          {.v = brightdown} },
-	{ 0,XK_Print,                                 spawn,          {.v = screenshot} },
+	{ 0,XK_Print,                              spawn,          {.v = screenshot} },
+	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarm} },
+	{ MODKEY,                       XK_c,      spawn,          {.v = screencold} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
