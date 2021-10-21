@@ -75,6 +75,8 @@ static const char *volmute[] = {"pamixer", "-t", NULL};
 static const char *brightup[] = {"brightnessctl", "set", "+50"};
 static const char *brightdown[] = {"brightnessctl", "set", "50-"};
 
+static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
+
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
 static Key keys[] = {
@@ -113,6 +115,7 @@ static Key keys[] = {
 	{ 0,XF86XK_AudioMute,                      spawn,          {.v = volmute} },
 	{ 0,XF86XK_MonBrightnessUp,                spawn,          {.v = brightup} },
 	{ 0,XF86XK_MonBrightnessDown,              spawn,          {.v = brightdown} },
+	{ 0,XK_Print,                                 spawn,          {.v = screenshot} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
