@@ -80,6 +80,9 @@ static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot
 static const char *screenwarm[] = {"redshift", "-P", "-O", "3000", NULL};
 static const char *screencold[] = {"redshift", "-P", "-O", "6500", NULL};
 
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
+
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
 static Key keys[] = {
@@ -121,6 +124,7 @@ static Key keys[] = {
 	{ 0,XK_Print,                              spawn,          {.v = screenshot} },
 	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarm} },
 	{ MODKEY,                       XK_c,      spawn,          {.v = screencold} },
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
