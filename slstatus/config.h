@@ -65,8 +65,8 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	//{ netspeed_tx, "^%sB/s ",   "wlan0" },	
-	//{ netspeed_rx, "v%sB/s ",   "wlan0" },
+	{ netspeed_tx, "[up %s ",   "wlp2s0" },	
+	{ netspeed_rx, "down %s]   ",   "wlp2s0" },
 	//{ vol_perc, "[VOL %s%] | ",      "/dev/mixer" },
 	{ run_command, "[VOL %s ", "pamixer --get-volume"},
 	{ run_command, "%s]   ", "pamixer --get-mute"},
