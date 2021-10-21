@@ -69,12 +69,18 @@ static const struct arg args[] = {
 	//{ netspeed_rx, "v%sB/s ",   "wlan0" },
 	//{ vol_perc, "[VOL %s%] | ",      "/dev/mixer" },
 	{ run_command, "[VOL %s ", "pamixer --get-volume"},
-	{ run_command, "%s]    ", "pamixer --get-mute"},
+	{ run_command, "%s]   ", "pamixer --get-mute"},
+	
+	{ run_command, "[BRI %s/", "brightnessctl g"},
+	{ run_command, "%s]   ", "brightnessctl m"},
+	
 	{ battery_perc, "[BAT %s",         "BAT0"   },
 	{ battery_state, "%s ",            "BAT0"   },
 	{ battery_remaining, "%s]   ",      "BAT0"   },
+	
 	{ cpu_perc, "[CPU %s%]   ",         NULL    },
 	{ ram_used, "[RAM %s/",             NULL    },
 	{ ram_total, "%s]   ",              NULL    },
+	
 	{ datetime, "[%s]",                   "%F %T" },
 };

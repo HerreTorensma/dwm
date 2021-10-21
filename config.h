@@ -65,10 +65,15 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+
 static const char *slock[] = {"slock", NULL};
+
 static const char *voldown[] = {"pamixer", "-d", "5", NULL};
 static const char *volup[] = {"pamixer", "-i", "5", NULL};
 static const char *volmute[] = {"pamixer", "-t", NULL};
+
+static const char *brightup[] = {"brightnessctl", "set", "+10%"};
+static const char *brightdown[] = {"brightnessctl", "set", "10%-"};
 
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
@@ -103,9 +108,11 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Right,  shiftview,      {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_Left,   shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_l,      spawn,          {.v = slock } },
-	{ 0,XF86XK_AudioLowerVolume,                 spawn,          {.v = voldown} },
-	{ 0,XF86XK_AudioRaiseVolume,                 spawn,          {.v = volup} },
-	{ 0,XF86XK_AudioMute,                        spawn,          {.v = volmute} },
+	{ 0,XF86XK_AudioLowerVolume,               spawn,          {.v = voldown} },
+	{ 0,XF86XK_AudioRaiseVolume,               spawn,          {.v = volup} },
+	{ 0,XF86XK_AudioMute,                      spawn,          {.v = volmute} },
+	{ 0,XF86XK_MonBrightnessUp,                spawn,          {.v = brightup} },
+	{ 0,XF86XK_MonBrightnessDown,              spawn,          {.v = brightdown} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
