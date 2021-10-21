@@ -72,8 +72,8 @@ static const char *voldown[] = {"pamixer", "-d", "5", NULL};
 static const char *volup[] = {"pamixer", "-i", "5", NULL};
 static const char *volmute[] = {"pamixer", "-t", NULL};
 
-static const char *brightup[] = {"brightnessctl", "set", "+10%"};
-static const char *brightdown[] = {"brightnessctl", "set", "10%-"};
+static const char *brightup[] = {"brightnessctl", "set", "+50"};
+static const char *brightdown[] = {"brightnessctl", "set", "50-"};
 
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
