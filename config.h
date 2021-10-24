@@ -72,8 +72,8 @@ static const char *voldown[] = {"pamixer", "-d", "5", NULL};
 static const char *volup[] = {"pamixer", "-i", "5", NULL};
 static const char *volmute[] = {"pamixer", "-t", NULL};
 
-static const char *brightup[] = {"brightnessctl", "set", "+50"};
-static const char *brightdown[] = {"brightnessctl", "set", "50-"};
+static const char *brightup[] = {"brightnessctl", "set", "+50", NULL};
+static const char *brightdown[] = {"brightnessctl", "set", "50-", NULL};
 
 static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
 
@@ -81,7 +81,12 @@ static const char *screenwarm[] = {"redshift", "-P", "-O", "3000", NULL};
 static const char *screencold[] = {"redshift", "-P", "-O", "6500", NULL};
 
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
+// static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
+static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "--embed", "120x34", NULL }; 
+
+static const char *browsercmd[] = {"firefox", NULL};
+static const char *keepasscmd[] = {"keepassxc", NULL};
+static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
 
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
@@ -89,7 +94,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_slash,  togglebar,      {0} },
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -125,6 +130,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarm} },
 	{ MODKEY,                       XK_c,      spawn,          {.v = screencold} },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_k,      spawn,          {.v = keepasscmd } },
+	{ MODKEY,                       XK_i,      spawn,          {.v = rangercmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
