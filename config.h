@@ -88,6 +88,8 @@ static const char *browsercmd[] = {"firefox", NULL};
 static const char *keepasscmd[] = {"keepassxc", NULL};
 static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
 
+static const char *shutdowncmd[] = {"dmenu-shutdown", NULL};
+
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
 static Key keys[] = {
@@ -133,6 +135,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_k,      spawn,          {.v = keepasscmd } },
 	{ MODKEY,                       XK_i,      spawn,          {.v = rangercmd } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = shutdowncmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
