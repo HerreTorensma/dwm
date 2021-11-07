@@ -2,8 +2,9 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 8;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
++static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
@@ -26,16 +27,18 @@ static const char *colors[][3]      = {
 
 /* tagging */
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
-static const char *tags[] = { ">_", "www", "doc", "view", "game", "music", "mail", "pass", "file" };
+static const char *tags[] = { ">_", "www", "doc", "view", "game", "music", "mail", "pass", "mess" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -72,8 +75,8 @@ static const char *voldown[] = {"pamixer", "-d", "5", NULL};
 static const char *volup[] = {"pamixer", "-i", "5", NULL};
 static const char *volmute[] = {"pamixer", "-t", NULL};
 
-static const char *brightup[] = {"brightnessctl", "set", "+50"};
-static const char *brightdown[] = {"brightnessctl", "set", "50-"};
+static const char *brightup[] = {"brightnessctl", "set", "+50", NULL};
+static const char *brightdown[] = {"brightnessctl", "set", "50-", NULL};
 
 static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
 
@@ -81,7 +84,14 @@ static const char *screenwarm[] = {"redshift", "-P", "-O", "3000", NULL};
 static const char *screencold[] = {"redshift", "-P", "-O", "6500", NULL};
 
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
+// static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
+static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "--embed", "120x34", NULL }; 
+
+static const char *browsercmd[] = {"firefox", NULL};
+static const char *keepasscmd[] = {"keepassxc", NULL};
+static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
+
+static const char *shutdowncmd[] = {"dmenu-shutdown", NULL};
 
 #include "shiftview.c"
 #include <X11/XF86keysym.h>
@@ -89,11 +99,11 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_slash,  togglebar,      {0} },
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_e,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_r,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
@@ -125,6 +135,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarm} },
 	{ MODKEY,                       XK_c,      spawn,          {.v = screencold} },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_k,      spawn,          {.v = keepasscmd } },
+	{ MODKEY,                       XK_i,      spawn,          {.v = rangercmd } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = shutdowncmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
