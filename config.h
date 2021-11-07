@@ -72,19 +72,19 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_green, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
-static const char *slock[] = {"slock", NULL};
+static const char *slockcmd[] = {"slock", NULL};
 
-static const char *voldown[] = {"pamixer", "-d", "5", NULL};
-static const char *volup[] = {"pamixer", "-i", "5", NULL};
-static const char *volmute[] = {"pamixer", "-t", NULL};
+static const char *voldowncmd[] = {"pamixer", "-d", "5", NULL};
+static const char *volupcmd[] = {"pamixer", "-i", "5", NULL};
+static const char *volmutecmd[] = {"pamixer", "-t", NULL};
 
-static const char *brightup[] = {"brightnessctl", "set", "+50", NULL};
-static const char *brightdown[] = {"brightnessctl", "set", "50-", NULL};
+static const char *brightupcmd[] = {"brightnessctl", "set", "+50", NULL};
+static const char *brightdowncmd[] = {"brightnessctl", "set", "50-", NULL};
 
-static const char *screenshot[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
+static const char *screenshotcmd[] = {"scrot", "/home/herret/screenshots/screenshot.png", NULL};
 
-static const char *screenwarm[] = {"redshift", "-P", "-O", "3000", NULL};
-static const char *screencold[] = {"redshift", "-P", "-O", "6500", NULL};
+static const char *screenwarmcmd[] = {"redshift", "-P", "-O", "3000", NULL};
+static const char *screencoldcmd[] = {"redshift", "-P", "-O", "6500", NULL};
 
 static const char scratchpadname[] = "scratchpad";
 // static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL }; 
@@ -93,6 +93,7 @@ static const char *scratchpadcmd[] = { "alacritty", "-t", scratchpadname, "--emb
 static const char *browsercmd[] = {"firefox", NULL};
 static const char *keepasscmd[] = {"keepassxc", NULL};
 static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
+static const char *newscmd[] = {"alacritty", "-e", "newsboat", NULL};
 
 static const char *shutdowncmd[] = {"dmenu-shutdown", NULL};
 
@@ -128,20 +129,21 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY|ControlMask,           XK_Right,  shiftview,      {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_Left,   shiftview,      {.i = -1 } },
-	{ MODKEY,                       XK_l,      spawn,          {.v = slock } },
-	{ 0,XF86XK_AudioLowerVolume,               spawn,          {.v = voldown} },
-	{ 0,XF86XK_AudioRaiseVolume,               spawn,          {.v = volup} },
-	{ 0,XF86XK_AudioMute,                      spawn,          {.v = volmute} },
-	{ 0,XF86XK_MonBrightnessUp,                spawn,          {.v = brightup} },
-	{ 0,XF86XK_MonBrightnessDown,              spawn,          {.v = brightdown} },
-	{ 0,XK_Print,                              spawn,          {.v = screenshot} },
-	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarm} },
-	{ MODKEY,                       XK_c,      spawn,          {.v = screencold} },
+	{ MODKEY,                       XK_l,      spawn,          {.v = slockcmd} },
+	{ 0,XF86XK_AudioLowerVolume,               spawn,          {.v = voldowncmd} },
+	{ 0,XF86XK_AudioRaiseVolume,               spawn,          {.v = volupcmd} },
+	{ 0,XF86XK_AudioMute,                      spawn,          {.v = volmutecmd} },
+	{ 0,XF86XK_MonBrightnessUp,                spawn,          {.v = brightupcmd} },
+	{ 0,XF86XK_MonBrightnessDown,              spawn,          {.v = brightdowncmd} },
+	{ 0,XK_Print,                              spawn,          {.v = screenshotcmd} },
+	{ MODKEY,                       XK_w,      spawn,          {.v = screenwarmcmd} },
+	{ MODKEY,                       XK_c,      spawn,          {.v = screencoldcmd} },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_k,      spawn,          {.v = keepasscmd } },
 	{ MODKEY,                       XK_i,      spawn,          {.v = rangercmd } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = shutdowncmd } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
